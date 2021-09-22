@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\grecu\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\grecu\\.nuget\\packages"
+    ]
+  }
+}

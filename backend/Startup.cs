@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Repositories;
 using Backend.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
 namespace backend
@@ -28,11 +33,15 @@ namespace backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
+
             var databaseSettings = Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
+            Debug.WriteLine(databaseSettings.ConnectionString);
             services.AddSingleton<IMongoClient>(provider =>
             {
                 return new MongoClient(databaseSettings.ConnectionString);
             });
+            services.AddSingleton<IWorkerRepository,WorkerRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

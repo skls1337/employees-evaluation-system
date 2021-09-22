@@ -10,7 +10,7 @@ namespace Backend.Settings
         {
             get 
             {
-                return $"mongodb+srv://{Host}:{Password}@{Host}/{DatabaseName}?retryWrites=true&w=majority";
+                return $"mongodb+srv://{User}:{Password}@{Host}/{DatabaseName}?retryWrites=true&w=majority";
             }
         }
     }
