@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Dtos;
@@ -57,7 +59,7 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-            Worker updatedWorker = new Worker()
+            Worker updatedWorker = new()
             {
                 Id = existing.Id,
                 FullName = worker.FullName,
@@ -80,5 +82,43 @@ namespace Backend.Controllers
             return Ok("Deleted");
         }
 
+        [HttpPost("{id}/{grade}")]
+       
+        public async Task<ActionResult> GradeWorker(string id,Grade grade)
+        {
+            Worker worker = await repository.GetWorker(id);
+            
+            if(worker is null)
+            {
+                return NotFound();
+            }
+
+           worker = await repository.GradeWorker(id,grade);
+            return Ok(new {worker});
+        }
+
+        [HttpPut("{id}/{grade}/{gradeId}")]
+        public async Task<ActionResult> UpdateGrade(string id, string gradeId,Grade grade)
+        {
+            Worker worker = await repository.GetWorker(id);
+            if(worker is null)
+            {
+                return NotFound();
+            }
+            worker = await repository.UpdateGrade(id,gradeId,grade);
+            return Ok(new{worker});
+        }
+
+        [HttpDelete("{id}/grade/{gradeId}")]
+        public async Task<ActionResult> DeleteGrade(string id, string gradeId)
+        {
+             Worker worker = await repository.GetWorker(id);
+            if(worker is null)
+            {
+                return NotFound();
+            }
+            worker = await repository.DeleteGrade(id,gradeId);
+            return Ok(new{worker});
+        }
     }
 }

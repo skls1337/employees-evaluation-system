@@ -11,5 +11,8 @@ namespace Backend.Repositories
         Task CreateWorker(Worker worker);
         Task UpdateWorker(Worker worker);
         Task DeleteWorker(string id); 
+        Task<Worker> GradeWorker(string id,Grade grade);
+        Task<Worker> UpdateGrade(string id,string gradeId, Grade newGrade);
+        Task<Worker> DeleteGrade(string id, string gradeId);
     }
 }
