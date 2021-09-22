@@ -39,3 +39,11 @@ C:\Users\grecu\Desktop\employees-evaluation-system\backend\obj\Debug\net5.0\back
 C:\Users\grecu\Desktop\employees-evaluation-system\backend\obj\Debug\net5.0\ref\backend.dll
 C:\Users\grecu\Desktop\employees-evaluation-system\backend\obj\Debug\net5.0\backend.pdb
 C:\Users\grecu\Desktop\employees-evaluation-system\backend\obj\Debug\net5.0\backend.genruntimeconfig.cache
+C:\Users\grecu\Desktop\employees-evaluation-system\backend\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\grecu\Desktop\employees-evaluation-system\backend\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\grecu\Desktop\employees-evaluation-system\backend\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\grecu\Desktop\employees-evaluation-system\backend\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\grecu\Desktop\employees-evaluation-system\backend\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\grecu\Desktop\employees-evaluation-system\backend\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\grecu\Desktop\employees-evaluation-system\backend\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\grecu\Desktop\employees-evaluation-system\backend\bin\Debug\net5.0\BCrypt.Net-Next.dll

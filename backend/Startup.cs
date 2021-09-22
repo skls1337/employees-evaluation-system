@@ -42,6 +42,7 @@ namespace backend
                 return new MongoClient(databaseSettings.ConnectionString);
             });
             services.AddSingleton<IWorkerRepository,WorkerRepository>();
+            services.AddSingleton<IUserRepository,UserRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
