@@ -14,11 +14,18 @@ namespace Backend.Dtos
         [Required]
         public string FullName { get; set; }
         [Required]
+        
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string userId { get; set; }
+        [Required]
         public string Position { get; set; }
+        [Required]
+        public Company Company { get; set; }
         public List<Grade> Grades { get; set; }
 
         public CreateWorkerDto()
         {
+            Id = ObjectId.GenerateNewId().ToString();
             Grades = new List<Grade>();
         }
     }

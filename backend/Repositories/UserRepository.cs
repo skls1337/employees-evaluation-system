@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using MongoDB.Driver;
 using Backend.Utils;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Backend.Repositories
 {
@@ -20,6 +21,11 @@ namespace Backend.Repositories
             userCollection = database.GetCollection<User>(collectionName);
             this.key = "lsdoaidioasidiasd";
         }
+
+        public async Task<User> GetUser(string id) =>await userCollection.Find<User>(user=>user.Id==id).SingleOrDefaultAsync();
+
+        public async Task<IEnumerable<User>> GetUsers()=>await userCollection.Find<User>(user=>true).ToListAsync();
+        
 
         public async Task<string> Login(string email, string password)
         {

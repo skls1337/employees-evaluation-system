@@ -12,6 +12,8 @@ namespace Backend.Extensions
               Id = worker.Id,
               FullName = worker.FullName,
               Position = worker.Position,
+              Company = worker.Company,
+              userId = worker.userId,
               Grades = worker.Grades  
             };
         }
