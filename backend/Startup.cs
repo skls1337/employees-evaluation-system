@@ -39,29 +39,32 @@ namespace backend
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
             var databaseSettings = Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
-            Debug.WriteLine(databaseSettings.ConnectionString);
+
             services.AddSingleton<IMongoClient>(provider =>
             {
                 return new MongoClient(databaseSettings.ConnectionString);
             });
-            services.AddSingleton<IWorkerRepository,WorkerRepository>();
-            services.AddSingleton<IUserRepository,UserRepository>();
-             services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer (x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("JwtKey").ToString())),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
+            services.AddAuthentication(x =>
+           {
+               x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+               x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+               x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+           }).AddJwtBearer(x =>
+           {
+               x.RequireHttpsMetadata = false;
+               x.SaveToken = true;
+               x.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JwtSecret"])),
+                   ValidateIssuer = false,
+                   ValidateAudience = false,
+                   ValidateLifetime = true,
+                   RequireExpirationTime = false
+               };
+           });
+            services.AddSingleton<IWorkerRepository, WorkerRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -82,7 +85,7 @@ namespace backend
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

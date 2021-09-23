@@ -13,12 +13,12 @@ namespace Backend.Models
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        public string Role { get; set; }
+        public Role Role { get; set; }
 
         public User()
         {
             Id = ObjectId.GenerateNewId().ToString();
-            Role = "employee";
+            Role = Role.Employee;
         }
     }
 }

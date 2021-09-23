@@ -7,13 +7,16 @@ using Backend.Dtos;
 using Backend.Extensions;
 using Backend.Models;
 using Backend.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class WorkerController:ControllerBase
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+    public class WorkerController : ControllerBase
     {
         private readonly IWorkerRepository repository;
 
@@ -37,13 +40,13 @@ namespace Backend.Controllers
         public async Task<ActionResult<WorkerDto>> GetWorker(string id)
         {
             var worker = await repository.GetWorker(id);
-            
-            if(worker is null)
+
+            if (worker is null)
             {
                 return NotFound();
             }
 
-            return  worker.AsDto();
+            return worker.AsDto();
         }
 
         //@method   POST
@@ -53,6 +56,14 @@ namespace Backend.Controllers
         [Route("workers")]
         public async Task<ActionResult> CreateWorker(CreateWorkerDto worker)
         {
+
+            var workers = (await repository.GetWorkers()).ToList();
+            var existing = workers.Find(w => w.userId == worker.userId);
+            if (existing is not null)
+            {
+                return BadRequest();
+            }
+
             Worker newWorker = new()
             {
                 Id = worker.Id,
@@ -63,7 +74,7 @@ namespace Backend.Controllers
                 Grades = worker.Grades
             };
             await repository.CreateWorker(newWorker);
-            return Ok(new {worker});
+            return Ok(new { worker });
         }
 
         //@method   PUT
@@ -71,10 +82,10 @@ namespace Backend.Controllers
         //@desc     UPDATE Worker with {id} from database
         [HttpPut]
         [Route("workers/{id}")]
-        public async Task<ActionResult> UpdateWorker(string id,UpdateWorkerDto worker)
+        public async Task<ActionResult> UpdateWorker(string id, UpdateWorkerDto worker)
         {
             var existing = await repository.GetWorker(id);
-            if(existing is null)
+            if (existing is null)
             {
                 return NotFound();
             }
@@ -88,18 +99,18 @@ namespace Backend.Controllers
                 Grades = worker.Grades
             };
             await repository.UpdateWorker(updatedWorker);
-            return Ok(new{updatedWorker});
+            return Ok(new { updatedWorker });
         }
 
         //@method   DELETE
         //@route    /api/workers/{id}
         //@desc     DELETE Worker with {id} from database
         [HttpDelete]
-          [Route("workers/{id}")]
+        [Route("workers/{id}")]
         public async Task<ActionResult> DeleteWorker(string id)
         {
             var existing = await repository.GetWorker(id);
-            if(existing is null)
+            if (existing is null)
             {
                 return NotFound();
             }
@@ -113,34 +124,34 @@ namespace Backend.Controllers
         //@desc     Add grade to worker with {id}
         [HttpPost("{id}/{grade}")]
         [Route("workers/{id}/grade")]
-       
-        public async Task<ActionResult> GradeWorker(string id,Grade grade)
+
+        public async Task<ActionResult> GradeWorker(string id, Grade grade)
         {
             Worker worker = await repository.GetWorker(id);
-            
-            if(worker is null)
+
+            if (worker is null)
             {
                 return NotFound();
             }
 
-           worker = await repository.GradeWorker(id,grade);
-            return Ok(new {worker});
+            worker = await repository.GradeWorker(id, grade);
+            return Ok(new { worker });
         }
-        
+
         //@method   PUT
         //@route    /api/workers/{id}/grade/{gradeId}
         //@desc     UPDATE Worker with {id} from database
         [HttpPut]
         [Route("workers/{id}/grade/{gradeId}")]
-        public async Task<ActionResult> UpdateGrade(string id, string gradeId,Grade grade)
+        public async Task<ActionResult> UpdateGrade(string id, string gradeId, Grade grade)
         {
             Worker worker = await repository.GetWorker(id);
-            if(worker is null)
+            if (worker is null)
             {
                 return NotFound();
             }
-            worker = await repository.UpdateGrade(id,gradeId,grade);
-            return Ok(new{worker});
+            worker = await repository.UpdateGrade(id, gradeId, grade);
+            return Ok(new { worker });
         }
 
         //@method   PUT
@@ -150,13 +161,13 @@ namespace Backend.Controllers
         [Route("workers/{id}/grade/{gradeId}")]
         public async Task<ActionResult> DeleteGrade(string id, string gradeId)
         {
-             Worker worker = await repository.GetWorker(id);
-            if(worker is null)
+            Worker worker = await repository.GetWorker(id);
+            if (worker is null)
             {
                 return NotFound();
             }
-            worker = await repository.DeleteGrade(id,gradeId);
-            return Ok(new{worker});
+            worker = await repository.DeleteGrade(id, gradeId);
+            return Ok(new { worker });
         }
     }
 }
