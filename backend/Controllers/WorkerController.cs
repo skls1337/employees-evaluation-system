@@ -15,7 +15,7 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api")]
-    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public class WorkerController : ControllerBase
     {
         private readonly IWorkerRepository repository;
