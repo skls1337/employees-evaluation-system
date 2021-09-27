@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\grecu\\Desktop\\employees-evaluation-system\\backend\\backend.csproj": {}
+    "F:\\Advisority\\employees-evaluation-system\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\grecu\\Desktop\\employees-evaluation-system\\backend\\backend.csproj": {
+    "F:\\Advisority\\employees-evaluation-system\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\grecu\\Desktop\\employees-evaluation-system\\backend\\backend.csproj",
+        "projectUniqueName": "F:\\Advisority\\employees-evaluation-system\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\grecu\\Desktop\\employees-evaluation-system\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\grecu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\grecu\\Desktop\\employees-evaluation-system\\backend\\obj\\",
+        "projectPath": "F:\\Advisority\\employees-evaluation-system\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\Andy Computers\\.nuget\\packages\\",
+        "outputPath": "F:\\Advisority\\employees-evaluation-system\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\grecu\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Andy Computers\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[5.0.10, )"
             },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.13.1, )"
@@ -81,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

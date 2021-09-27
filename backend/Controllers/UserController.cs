@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repositories;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [EnableCors]
     [ApiController]
     [Route("api")]
     public class UserController : ControllerBase
@@ -21,6 +23,7 @@ namespace Backend.Controllers
         //@method   GET
         //@route    /api/users
         //@desc     GET All users from database
+        
         [HttpGet]
         [Route("users")]
         public async Task<IEnumerable<User>> GetUsers() => await repository.GetUsers();
