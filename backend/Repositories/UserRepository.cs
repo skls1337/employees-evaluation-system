@@ -24,6 +24,8 @@ namespace Backend.Repositories
 
         public async Task<User> GetUser(string id) =>await userCollection.Find<User>(user=>user.Id==id).SingleOrDefaultAsync();
 
+        public async Task<User> GetUserByEmail(string email) => await userCollection.Find<User>(user =>user.Email==email).SingleAsync();
+
         public async Task<IEnumerable<User>> GetUsers()=>await userCollection.Find<User>(user=>true).ToListAsync();
         
 

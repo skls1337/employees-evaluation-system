@@ -61,5 +61,7 @@ namespace Backend.Repositories
             await UpdateWorker(worker);
             return worker;
         }
+
+        public async Task<Worker> GetWorkerFromUserId(string id)=> await workerCollection.Find<Worker>(w => w.userId == id).SingleOrDefaultAsync();
     }
 }

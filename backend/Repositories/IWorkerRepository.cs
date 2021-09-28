@@ -8,6 +8,7 @@ namespace Backend.Repositories
     {
         Task<IEnumerable<Worker>> GetWorkers();
         Task<Worker> GetWorker(string id);
+        Task<Worker> GetWorkerFromUserId(string id);
         Task CreateWorker(Worker worker);
         Task UpdateWorker(Worker worker);
         Task DeleteWorker(string id); 

@@ -9,10 +9,12 @@ using Backend.Models;
 using Backend.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [EnableCors("AllowAllCorsPolicy")]
     [ApiController]
     [Route("api")]
     [Authorize]
@@ -168,6 +170,23 @@ namespace Backend.Controllers
             }
             worker = await repository.DeleteGrade(id, gradeId);
             return Ok(new { worker });
+        }
+
+        //@method   GET
+        //@route    /api/workers/user/{id}
+        //@desc     GET Worker with user {id} from database
+
+        [HttpGet]
+        [Route("workers/user/{id}")]
+        public async Task<ActionResult> GetWorkerFromUserId(string id)
+        {
+            var worker = await repository.GetWorkerFromUserId(id);
+            if(worker is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new{worker});
         }
     }
 }

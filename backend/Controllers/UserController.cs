@@ -48,8 +48,8 @@ namespace Backend.Controllers
             {
                 return Unauthorized();
             }
-
-            return Ok(new { token });
+            var userData = await repository.GetUserByEmail(user.Email);
+            return Ok(new { token,userData });
         }
 
         //@method   POST
