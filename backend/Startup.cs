@@ -69,18 +69,17 @@ namespace backend
            });
             services.AddSingleton<IWorkerRepository, WorkerRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
-         services.AddCors(options =>
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllCorsPolicy", builder =>
                 {
-                    options.AddDefaultPolicy(
-                        builder =>
-                        {
-                            builder
-                                .AllowAnyOrigin()
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                                
-                        });
+                    builder
+                    .SetIsOriginAllowed(x => _ = true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
                 });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -103,7 +102,7 @@ namespace backend
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors("AllowAllCorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();

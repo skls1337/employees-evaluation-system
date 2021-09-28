@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
-    [EnableCors]
+    [EnableCors("AllowAllCorsPolicy")]
     [ApiController]
     [Route("api")]
     public class UserController : ControllerBase
@@ -42,14 +42,14 @@ namespace Backend.Controllers
         [Route("auth/login")]
         public async Task<ActionResult> Login([FromBody] User user)
         {
-            var result = await repository.Login(user.Email, user.Password);
+            var token = await repository.Login(user.Email, user.Password);
 
-            if (result is null)
+            if (token is null)
             {
                 return Unauthorized();
             }
 
-            return Ok(new { result });
+            return Ok(new { token });
         }
 
         //@method   POST
@@ -59,14 +59,14 @@ namespace Backend.Controllers
         [Route("auth/register")]
         public async Task<ActionResult> Register([FromBody] User user)
         {
-            var result = await repository.Register(user.Email, user.Password);
+            var token = await repository.Register(user.Email, user.Password);
 
-            if (result is null)
+            if (token is null)
             {
                 return Unauthorized();
             }
 
-            return Ok(new { result });
+            return Ok(new { token });
         }
     }
 }
