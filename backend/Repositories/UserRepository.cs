@@ -47,7 +47,7 @@ namespace Backend.Repositories
             return Utils.Utils.GenerateJwt(key,email,password);
         }
 
-        public async Task<string> Register(string email, string password)
+        public async Task<string> Register(string email, string password,Role role)
         {
             var user = await userCollection.Find(user => user.Email == email).SingleOrDefaultAsync();
 
@@ -61,7 +61,8 @@ namespace Backend.Repositories
             user = new()
             {
                 Email = email,
-                Password = passwordHash
+                Password = passwordHash,
+                Role=role
             };
             await userCollection.InsertOneAsync(user);
             return Utils.Utils.GenerateJwt(key,email,password);

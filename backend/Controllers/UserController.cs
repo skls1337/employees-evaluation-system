@@ -59,7 +59,7 @@ namespace Backend.Controllers
         [Route("auth/register")]
         public async Task<ActionResult> Register([FromBody] User user)
         {
-            var token = await repository.Register(user.Email, user.Password);
+            var token = await repository.Register(user.Email, user.Password,user.Role);
 
             if (token is null)
             {

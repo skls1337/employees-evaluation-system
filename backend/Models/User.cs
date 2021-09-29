@@ -19,7 +19,6 @@ namespace Backend.Models
         public User()
         {
             Id = ObjectId.GenerateNewId().ToString();
-            Role = Role.Employee;
         }
     }
 }
