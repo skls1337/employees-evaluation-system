@@ -9,7 +9,7 @@ namespace Backend.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; }
+        public string Id { get; set; }
         [Required]
         [Range(1,10)]
         public int CommunicationLevel { get; set; }
@@ -26,7 +26,7 @@ namespace Backend.Models
 
         public Grade()
         {
-            Id = ObjectId.GenerateNewId();
+            Id = ObjectId.GenerateNewId().ToString();
             Timestamp = DateTime.UtcNow;
         }
     }

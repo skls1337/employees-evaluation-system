@@ -47,7 +47,7 @@ namespace Backend.Repositories
         public async Task<Worker> UpdateGrade(string id, string gradeId, Grade newGrade)
         {
             var worker = await GetWorker(id);
-            var index = worker.Grades.FindIndex(i => i.Id.ToString() == gradeId);
+            var index = worker.Grades.FindIndex(i => i.Id == gradeId);
             worker.Grades[index] = newGrade;
             await UpdateWorker(worker);
             return worker;
@@ -56,7 +56,7 @@ namespace Backend.Repositories
         public async Task<Worker> DeleteGrade(string id, string gradeId)
         {
             var worker = await GetWorker(id);
-            var index = worker.Grades.FindIndex(i => i.Id.ToString() == gradeId);
+            var index = worker.Grades.FindIndex(i => i.Id == gradeId);
             worker.Grades.RemoveAt(index);
             await UpdateWorker(worker);
             return worker;
